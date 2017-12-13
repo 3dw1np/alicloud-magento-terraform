@@ -49,15 +49,14 @@ resource "alicloud_slb" "web" {
   name                 = "web-slb"
   internet             = true
   internet_charge_type = "paybytraffic"
+}
 
-  listener = [
-    {
-      "instance_port" = "80"
-      "lb_port"       = "80"
-      "lb_protocol"   = "http"
-      "bandwidth"     = "5"
-    }
-  ]
+resource "alicloud_slb_listener" "http" {
+  load_balancer_id = "${alicloud_slb.web.id}"
+  backend_port              = 80
+  frontend_port             = 80
+  bandwidth                 = 10
+  protocol                  = "tcp"
 }
 
 resource "alicloud_ess_scaling_group" "web" {
@@ -124,6 +123,10 @@ resource "alicloud_db_instance" "default" {
     ]
 }
 
+
+variable "magento_auth_public_key" {}
+variable "magento_auth_private_key" {}
+
 data "template_file" "user_data" {
   template = "${file("user_data.sh")}"
 
@@ -133,8 +136,8 @@ data "template_file" "user_data" {
     DB_USER = "admin_sql"
     DB_PASSWORD = "p@ssword"
     DOMAIN_URL = "www.myecommerce.com"
-    MAGENTO_AUTH_PUBLIC_KEY = "$${var.magento_auth_public_key}"
-    MAGENTO_AUTH_PRIVATE_KEY = "$${var.magento_auth_private_key}"
+    MAGENTO_AUTH_PUBLIC_KEY = "${var.magento_auth_public_key}"
+    MAGENTO_AUTH_PRIVATE_KEY = "${var.magento_auth_private_key}"
     MAGENTO_ADMIN_USER = "admin"
     MAGENTO_ADMIN_PASSWORD = "admin123"
     MAGENTO_ADMIN_EMAIL = "admin@myecommerce.com"
@@ -142,6 +145,7 @@ data "template_file" "user_data" {
     MAGENTO_ADMIN_LASTNAME = "Doe"
   }
 }
+
 
 output "slb_web_public_ip" {
   value = "${alicloud_slb.web.address}"

@@ -4,13 +4,6 @@ At Alibaba Cloud, we use Terraform to provide fast demos to our customers.
 I truly believe that the infrasture-as-code is the quick way to leverage a public cloud provider services. Instead of clicking on the Web Console UI, the logic of the infrasture-as-code allows us to define more accuratly, manage each services, and automate the entire infrastructure with a versionning control (git).
 
 
-
-1. Install Terraform
-2. Get access keys from Magento Marketplace to download Magento 2 platform 
-2. Setup Alicloud terraform provider from https://github.com/alibaba/terraform-provider
-3. Export environment variables
-4. Build Infrastructure
-
 ## Get access keys from Magento Marketplace 
 To obtain Magento 2 platform, we need some access keys. You need to go to [https://marketplace.magento.com/]() and create an account there. Next, follow Home > Customer Account > My Access Keys, and generate new access keys.
 
@@ -35,7 +28,7 @@ root@alicloud:~$ terraform
 Usage: terraform [--version] [--help] <command> [args]
 ```
 
-## Setup Alicloud terraform provider 
+## Setup Alicloud terraform provider (> v1.3.2)
 The official repository for Alicloud terraform provider is [https://github.com/alibaba/terraform-provider]() 
 
 * Download a compiled binary from https://github.com/alibaba/terraform-provider/releases.
@@ -71,5 +64,3 @@ terrform apply --var 'magento_auth_public_key=<public_key>' --var 'magento_auth_
 ```
 
 * A local file named "terraform.tfstate" should appear and contains the state your deployed infrastructure.
-
-Due to an [issue](https://github.com/alibaba/terraform-provider/issues/284), the ECS instances created by the auto scaling group is not added as Backend Servers on the Server Load Balander. We need to do it manually from the web console at the moment.
