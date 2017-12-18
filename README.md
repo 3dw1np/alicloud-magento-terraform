@@ -1,7 +1,10 @@
 # Deploy Magento 2 (eCommerce Platform) on Alibaba Cloud with Terraform
 
 At Alibaba Cloud, we use Terraform to provide fast demos to our customers.
-I truly believe that the infrasture-as-code is the quick way to leverage a public cloud provider services. Instead of clicking on the Web Console UI, the logic of the infrasture-as-code allows us to define more accuratly, manage each services, and automate the entire infrastructure with a versionning control (git).
+I truly believe that the infrasture-as-code is the quick way to leverage a public cloud provider services. Instead of clicking on the Web Console UI, the logic of the infrasture-as-code allows us to define more accuratly each used services, automate the entire infrastructure and version it with a versionning control (git).
+
+## High-level design
+![HLD](https://raw.githubusercontent.com/3dw1np/alicloud-magento-terraform/ad441998b17851d5f14b22de25516e486406ffbf/HLD.png)
 
 
 ## Get access keys from Magento Marketplace 
